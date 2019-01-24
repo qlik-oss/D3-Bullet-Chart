@@ -10,6 +10,7 @@ export default function bullet () {
       ranges = bulletRanges,
       markers = bulletMarkers,
       measures = bulletMeasures,
+      measuresTxt = bulletMeasuresTxt,
       measureHeight = bulletMeasureHeight,
       width = 380,
       height = 30,
@@ -21,6 +22,7 @@ export default function bullet () {
       var rangez = ranges.call(this, d, i).slice().sort(d3.descending),
           markerz = markers.call(this, d, i).slice().sort(d3.descending),
           measurez = measures.call(this, d, i).slice().sort(d3.descending),
+          measurezTxt = measuresTxt.call(this, d, i).slice().sort(d3.descending),
           measureHeightz = measureHeight.call(this, d, i).slice().sort(d3.descending),
           rangeMax = getRangeMax.call(this, d, i).slice().sort(d3.descending),
           g = d3.select(this);
@@ -40,6 +42,7 @@ export default function bullet () {
       var x0 = this.__chart__ || d3.scale.linear()
           .domain([0, Infinity])
           .range(x1.range());
+      var formats = d3.time.format("%x");
 
       // Stash the new scale.
       this.__chart__ = x1;
@@ -124,8 +127,19 @@ export default function bullet () {
 
       // Update the tick groups.
       var tick = g.selectAll("g.tick")
-          .data(x1.ticks(8), function(d) {
-            return this.textContent || format(d);
+          .data(measurezTxt, function(d) {
+            // console.log(x1);
+
+            console.log(d);
+            // console.log(measurez, measurezTxt);
+            // if(measurez[0] !== measurezTxt[0]){
+
+            //   var test = formats.parse(measurez[0])
+            //   console.log(test);
+            //   // return x2(d);
+            // }
+            // return this.textContent || format(d);
+            return d;
           });
 
       // Initialize the ticks with the old scale, x0.
@@ -141,12 +155,16 @@ export default function bullet () {
           .attr("text-anchor", "middle")
           .attr("dy", "1em")
           .attr("y", height+maxTickHeight)
-          .text(format);
+          .text(function(d){
+            return d.txt
+          });
 
       // Transition the entering ticks to the new scale, x1.
       tickEnter.transition()
           .duration(duration)
-          .attr("transform", bulletTranslate(x1))
+          .attr("transform",function(d){
+            bulletTranslate(x1)
+          })
           .style("opacity", 1);
 
       // Transition the updating ticks to the new scale, x1.
@@ -247,10 +265,13 @@ function bulletMarkers(d) {
 function bulletMeasures(d) {
   return d.measures;
 }
+function bulletMeasuresTxt(d) {
+  return d.measuresTxt;
+}
 
 function bulletTranslate(x) {
   return function(d) {
-    return "translate(" + x(d) + ",0)";
+    return "translate(" + x(d.num) + ",0)";
   };
 }
 
