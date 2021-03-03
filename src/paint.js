@@ -177,6 +177,9 @@ export default function paint($element, layout, component) {
 
 
   // Create margin - should be replaced by dynamic numbers when this is eventually a responsive viz
+  let margin = { top: 5, right: 20, bottom: 25, left: dimWidth };
+
+  // Set chart object width
   let width = $element.width() - margin.left - margin.right;
 
   // Set chart object height
