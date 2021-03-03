@@ -177,9 +177,6 @@ export default function paint($element, layout, component) {
 
 
   // Create margin - should be replaced by dynamic numbers when this is eventually a responsive viz
-  let margin = { top: 5, right: 20, bottom: 25, left: dimWidth };
-
-  // Set chart object width
   let width = $element.width() - margin.left - margin.right;
 
   // Set chart object height
@@ -189,8 +186,7 @@ export default function paint($element, layout, component) {
   let height =Math.abs($element.height() / barsNum - margin.top - margin.bottom - 1);
 
   // Chart object id
-  const randomId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-
+  const randomId = component.definitions.randomId;
   let id = 'container_' + layout.qInfo.qId + randomId;
   // Check to see if the chart element has already been created
   if (document.getElementById(id)) {
