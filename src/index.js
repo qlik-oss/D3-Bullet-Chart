@@ -7,20 +7,20 @@ if (!window._babelPolyfill) { //eslint-disable-line no-underscore-dangle
 
 //----------individual accordion labels-------------
 //Dimension
-var dimLabel = {
+let dimLabel = {
   ref: 'props.section1.dimLabel',
   label: 'Dimension Label',
   type: 'string',
   expression: 'optional'
 };
 
-var showDimSubTitles = {
+let showDimSubTitles = {
   ref: 'props.section1.showDimSubTitles',
   label: 'Display Label',
   type: 'boolean',
   defaultValue: false
 };
-var dimWidth = {
+let dimWidth = {
   ref: 'props.section1.dimWidth',
   label: 'Change space for dimension text',
   type: 'number',
@@ -30,7 +30,7 @@ var dimWidth = {
   component: 'slider'
 };
 //Measure configuration
-var barSize = {
+let barSize = {
   ref: 'props.section2.barSize',
   label: 'Change size of bar',
   type: 'number',
@@ -39,7 +39,7 @@ var barSize = {
   max: 100,
   component: 'slider'
 };
-var barNum = {
+let barNum = {
   ref: 'props.section2.barNum',
   label: 'Quantity of bars showed(max. 20)',
   type: 'integer',
@@ -55,7 +55,7 @@ var barNum = {
     }
   }
 };
-var barColor = {
+let barColor = {
   ref: 'props.section2.barColor',
   label: 'Change bar color',
   type: 'object',
@@ -67,7 +67,7 @@ var barColor = {
   dualOutput: true
 };
 //Marker configuration
-var markerColor = {
+let markerColor = {
   ref: 'props.section3.markerColor',
   label: 'Change marker color',
   type: 'object',
@@ -78,7 +78,7 @@ var markerColor = {
   dualOutput: true
 };
 //Range configuration
-var rangeColor = {
+let rangeColor = {
   ref: 'props.section4.rangeColor',
   label: 'Change range color',
   type: 'object',
@@ -88,7 +88,7 @@ var rangeColor = {
   component: 'color-picker',
   dualOutput: true
 };
-var lowerThreshRange = {
+let lowerThreshRange = {
   ref: 'props.section4.lowerThreshRange',
   label: 'Set lower range (%)',
   type: 'number',
@@ -110,7 +110,7 @@ var lowerThreshRange = {
     }
   }
 };
-var middleThreshRange = {
+let middleThreshRange = {
   ref: 'props.section4.middleThreshRange',
   type: 'number' ,
   label: 'Set middle range (%)',
@@ -133,17 +133,22 @@ var middleThreshRange = {
   }
 };
 //Axis configuration
-var uniformAxisBool = {
+let uniformAxisBool = {
   ref: 'props.section5.uniformAxisBool',
   label: 'Consistent for all axis dimension values',
   type: 'boolean',
   defaultValue: true
 };
 
+let randomId = {
+  randomId: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+};
+
 export default {
   definition: {
     type: 'items',
     component: 'accordion',
+    randomId: randomId,
     items: {
       data:{
         uses: 'data',
@@ -215,7 +220,7 @@ export default {
             component: 'text'
           },
           paragraph1: {
-            label: `Bullet chart is Qlik Sense chart which allows the user to visualize up to three measures across one or no dimensions.`,
+            label: 'Bullet chart is Qlik Sense chart which allows the user to visualize up to three measures across one or no dimensions.',
             component: 'text'
           },
           paragraph2: {
